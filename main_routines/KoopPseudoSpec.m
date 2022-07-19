@@ -32,6 +32,7 @@ p.CaseSensitive = false;
 parse(p,varargin{:})
 
 %% compute the pseudospectrum
+G=(G+G')/2; L=(L+L')/2; % safeguards
 [VG,DG]=eig(G+norm(G)*(p.Results.reg_param)*eye(size(G)));
 DG(abs(DG)>0)=sqrt(1./abs(DG(abs(DG)>0)));
 SQ=VG*DG*(VG'); % needed to compute pseudospectra according to Gram matrix G
