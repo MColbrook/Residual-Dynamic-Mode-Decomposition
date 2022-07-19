@@ -8,4 +8,4 @@ Code for the papers:
 
 2. M.J. Colbrook, L. Ayton, M. Szőke, "Residual Dynamic Mode Decomposition: Robust and verified Koopmanism"
 
-Currently the code consists of only the main routines. I am in the process of building a gallery of examples that use the code.
+The code is split into "main_routines" which are used across the papers. Each paper has a gallery of examples. Within each folder of examples, subfolders need to be added to the path for datasets etc. Some of the code also makes use of Chebfun, which can be found at https://www.chebfun.org/.
