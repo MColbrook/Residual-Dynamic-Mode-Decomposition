@@ -48,12 +48,12 @@ pfcleanup = onCleanup(@() delete(pf));
 if p.Results.Parallel=="on"
     parfor jj=1:LL
         warning('off','all')
-        RES(jj)=sqrt(min(svds( SQ*((L)-z_pts(jj)*A'-conj(z_pts(jj))*A+(abs(z_pts(jj))^2)*G)*SQ,1,'smallest')));
+        RES(jj)=sqrt(min(eigs( SQ*((L)-z_pts(jj)*A'-conj(z_pts(jj))*A+(abs(z_pts(jj))^2)*G)*SQ,1,'smallestabs')));
         parfor_progress(pf);
     end
 else
     for jj=1:LL
-        RES(jj)=sqrt(min(svds( SQ*((L)-z_pts(jj)*A'-conj(z_pts(jj))*A+(abs(z_pts(jj))^2)*G)*SQ,1,'smallest')));
+        RES(jj)=sqrt(min(eigs( SQ*((L)-z_pts(jj)*A'-conj(z_pts(jj))*A+(abs(z_pts(jj))^2)*G)*SQ,1,'smallestabs')));
         parfor_progress(pf);
     end
 end
