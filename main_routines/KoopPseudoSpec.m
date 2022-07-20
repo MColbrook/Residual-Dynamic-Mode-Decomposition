@@ -41,10 +41,13 @@ z_pts=z_pts(:);
 LL=length(z_pts);
 RES=zeros(LL,1);
 
+warning('off','all')
+
 pf = parfor_progress(LL);
 pfcleanup = onCleanup(@() delete(pf));
 if p.Results.Parallel=="on"
     parfor jj=1:LL
+        warning('off','all')
         RES(jj)=sqrt(min(svds( SQ*((L)-z_pts(jj)*A'-conj(z_pts(jj))*A+(abs(z_pts(jj))^2)*G)*SQ,1,'smallest')));
         parfor_progress(pf);
     end
@@ -54,6 +57,9 @@ else
         parfor_progress(pf);
     end
 end
+
+warning('on','all')
+
 
 
 end

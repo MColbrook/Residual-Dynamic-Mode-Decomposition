@@ -3,9 +3,9 @@ function [nu] = IsomMeas(G,A,L,f,THETA,epsilon,varargin)
 % ResDMD matrices.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % INPUTS
-% G: Gram matrix, i.e., <psi_j,psi_i>
-% A: 1st Galerkin matrix,  i.e., <K psi_j,psi_i>
-% L: 2nd Galerkin matrix,  i.e., <K psi_j,K psi_i>
+% G: Gram matrix
+% A: 1st Galerkin matrix  i.e. <K psi_j,psi_i>
+% L: 2nd Galerkin matrix  i.e. <K psi_j,K psi_i>
 % f: vector in \mathbb{C}^N (discretization of the observable)
 % THETA: vector of points in periodic interval [-pi,pi] where we compute smoothed measures
 % epsilon: the smoothing parameter
@@ -74,7 +74,7 @@ if issparse(A)&&issparse(G)
         end
     end
 else
-    if norm(full(G)-eye(size(G)),'fro')<10^(-14)*norm(full(G),'fro')
+    if norm(G-speye(size(G)))<10^(-14)*norm(G)
         [Q,S]=schur(A);
         Z=Q;
         T=speye(size(A));
