@@ -1,16 +1,16 @@
 clear
 close all
 
-%% The following data file is available upon request
+%% The following data files are available from the dropbox link
 % load('Cylinder_data.mat')
 use_DMD=0;  % choice of basis: set to 1 to use DMD, set to 0 to use kEDMD
 if use_DMD==1
-    load('Cylinder_DMD.mat')
+    load('Cylinder_DMD.mat') % precomputed matrices
 else
-    load('Cylinder_EDMD.mat')
+    load('Cylinder_EDMD.mat') % precomputed matrices
 end
 
-%%%%% UNCOMMENT THE FOLLOWING TO PERFORM COMPUTATIONS FROM DATA %%%%%
+%%%%% UNCOMMENT THE FOLLOWING TO PERFORM COMPUTATIONS FROM DATA FILE 'Cylinder_data.mat' %%%%%
 
 % %% Algorithmic parameters
 % N=400;      % number of basis functions used
@@ -46,7 +46,7 @@ RES=reshape(RES,length(y_pts),length(x_pts));
 figure
 hold on
 v=(10.^(-2:0.2:0));
-contourf(reshape(real(z_pts),length(y_pts),length(x_pts)),reshape(imag(z_pts),length(y_pts),length(x_pts)),log10(real(RES)),log10(v));%,'k','linewidth',1.5)
+contourf(reshape(real(z_pts),length(y_pts),length(x_pts)),reshape(imag(z_pts),length(y_pts),length(x_pts)),log10(real(RES)),log10(v));
 cbh=colorbar;
 cbh.Ticks=log10([0.005,0.01,0.1,1]);
 cbh.TickLabels=[0,0.01,0.1,1];

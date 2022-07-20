@@ -1,7 +1,7 @@
 clear
 close all
 
-%% Load the data
+%% Load the data from the dropbox link (2 different setups)
 % load('HotWireData_FlowInjection.mat')
 load('HotWireData_Baseline.mat')
 

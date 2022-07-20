@@ -1,7 +1,7 @@
 clear
 close all
 
-%% The following data files are available upon request
+%% The following data files are available from the dropbox link
 % load('dataset_1s.mat') % this loads DATA from experimental realisation #1
 % load('dataset_1s_b.mat') % this loads DATA from experimental realisation #2
 load('EDMD_canopy_final.mat') % this is saved data from running the commented code below

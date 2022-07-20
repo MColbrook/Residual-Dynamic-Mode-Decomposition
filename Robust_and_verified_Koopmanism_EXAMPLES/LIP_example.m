@@ -1,6 +1,6 @@
 clear
 close all
-%% load data
+%% Load the data from the dropbox link
 load('LIP.mat')
 pG=transpose(pG);
 pG=pG(:,40:150);
@@ -71,7 +71,7 @@ RES = KoopPseudoSpec(G_matrix,A_matrix,L_matrix,z_pts,'Parallel','on'); RES=resh
 figure
 hold on
 v=(10.^(-5:0.25:0));
-contourf(reshape(real(z_pts),length(y_pts),length(x_pts)),reshape(imag(z_pts),length(y_pts),length(x_pts)),log10(real(RES)),log10(v));%,'k','linewidth',1.5)
+contourf(reshape(real(z_pts),length(y_pts),length(x_pts)),reshape(imag(z_pts),length(y_pts),length(x_pts)),log10(real(RES)),log10(v));
 cbh=colorbar;
 cbh.Ticks=log10([0.0005,0.001,0.01,0.1,1]);
 cbh.TickLabels=[0,0.001,0.01,0.1,1];
