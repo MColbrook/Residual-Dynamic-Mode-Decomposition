@@ -3,7 +3,7 @@ close all
 %%
 sigma=0.001;                % standard deviation for noisy experiment. NB: results will be slightly different each time due to randomness
 m=1;                        % order of kernel
-Nvec=[1:200,1000];          % dector of truncation sizes for convergence plot
+Nvec=[1:200,1000];          % vector of truncation sizes for convergence plot
 MU1=zeros(length(Nvec),1);  % vector for measure with epsilon=0.5
 MU2=zeros(length(Nvec),1);  % vector for measure with epsilon=0.1
 MU3=zeros(length(Nvec),1);  % vector for measure with epsilon=0.01
