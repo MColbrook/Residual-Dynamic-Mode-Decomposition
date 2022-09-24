@@ -2,18 +2,25 @@ clear
 close all
 
 %% The following data files are available from the dropbox link
-% load('Cylinder_data.mat')
-use_DMD=0;  % choice of basis: set to 1 to use DMD, set to 0 to use kEDMD
-if use_DMD==1
+
+use_DMD=1;  % choice of basis: set to 1 to use DMD, set to 0 to use kEDMD
+if use_DMD==1 % linear dictionary
     load('Cylinder_DMD.mat') % precomputed matrices
+elseif use_DMD==2 % combined
+    load('Cylinder_DMD.mat')
+    PSI_x0=PSI_x;   PSI_y0=PSI_y;
+    load('Cylinder_EDMD.mat')
+    N=2*N; % non-linear dictionary
+    PSI_x=[PSI_x,PSI_x0];
+    PSI_y=[PSI_y,PSI_y0];    
 else
     load('Cylinder_EDMD.mat') % precomputed matrices
 end
 
 %%%%% UNCOMMENT THE FOLLOWING TO PERFORM COMPUTATIONS FROM DATA FILE 'Cylinder_data.mat' %%%%%
-
+% load('Cylinder_data.mat');
 % %% Algorithmic parameters
-% N=400;      % number of basis functions used
+% N=200;      % number of basis functions used
 % M1=500;     % number of snapshots to compute the basis
 % M2=1000;    % number of snapshots used for ResDMD matrices
 % 
@@ -24,19 +31,19 @@ end
 % if use_DMD~=1
 %     [PSI_x,PSI_y] = kernel_ResDMD(DATA(:,ind1),DATA(:,ind1+1),DATA(:,ind2),DATA(:,ind2+1),'N',N,'Parallel','on','cut_off',0);
 % else
-%     [U,S,V]=svd(transpose(DATA(:,ind1))/sqrt(M1),'econ');
-%     N=200;
+%     [~,S,V]=svd(transpose(DATA(:,ind1))/sqrt(M1),'econ');
 %     PSI_x=transpose(DATA(:,ind2))*V(:,1:N)*diag(1./(diag(S(1:N,1:N))));
 %     PSI_y=transpose(DATA(:,ind2+1))*V(:,1:N)*diag(1./(diag(S(1:N,1:N))));
+%     clear S V
 % end
 % 
 % %%
-% G_matrix=(PSI_x'*PSI_x)/M2;     
-% A_matrix=(PSI_x'*PSI_y)/M2;
-% L_matrix=(PSI_y'*PSI_y)/M2;
+G_matrix=(PSI_x'*PSI_x)/M2;     
+A_matrix=(PSI_x'*PSI_y)/M2;
+L_matrix=(PSI_y'*PSI_y)/M2;
 
 %% Compute pseudospectra
-x_pts=-1.5:0.02:1.5;    y_pts=x_pts;
+x_pts=-1.5:0.05:1.5;    y_pts=x_pts;
 z_pts=kron(x_pts,ones(length(y_pts),1))+1i*kron(ones(1,length(x_pts)),y_pts(:));    z_pts=z_pts(:);		% complex points where we compute pseudospectra
 RES = KoopPseudoSpec(G_matrix,A_matrix,L_matrix,z_pts,'Parallel','on');	% compute pseudospectra
 RES=reshape(RES,length(y_pts),length(x_pts));
@@ -58,17 +65,18 @@ ax=gca; ax.FontSize=14; axis equal tight;   axis([x_pts(1),x_pts(end),y_pts(1),y
 hold on
 plot(real(E),imag(E),'.r');
 
-
 %%
-RES2 = KoopPseudoSpec(G_matrix,A_matrix,(PSI_y'*PSI_y)/M2,E,'Parallel','on'); % compute residuals for eigenvalues
-
+RES2 = zeros(N,1);
+for j=1:N
+    RES2(j)=abs(sqrt(V(:,j)'*(L_matrix-E(j)*A_matrix'-conj(E(j))*A_matrix+abs(E(j))^2*G_matrix)*V(:,j))/sqrt(V(:,j)'*G_matrix*V(:,j)));
+end
 %% Plot EDMD eigenvalues against residual
 [RES_p,I]=sort(RES2,'ascend');
 figure
 semilogy(angle(E(I)),RES_p,'.r','markersize',10)
 set(gca,'yscale','log')
 ax=gca; ax.FontSize=14;
-ylim([10^(-9),1])
+ylim([10^(-8),1])
 
 %% Check the lattice structure
 evec_x=PSI_x*V(:,I);
@@ -83,19 +91,20 @@ for j=1:100
     end
     b1=evec_x(:,abs(lam-t1)<max(0.001,0*max(lam1))).^j;
     b2=evec_x(:,I2);
-    ang1(j)=norm(b1*b1'/norm(b1)^2-b2*b2'/norm(b2)^2);
+    ang1(j)=acos(abs(b1(:)'*b2(:)/(norm(b1)*norm(b2))));
     lam1(j)=abs(lam(I2)-t1^j);
     res1(j)=RES2(I(I2));
 end
 %%
 figure
 lam1(1)=0;  ang1(1)=0;  res1(1)=0;
-semilogy(lam1,'*-','linewidth',1)
+semilogy(lam1,'*-','linewidth',2)
 hold on
-semilogy(res1,'d-','linewidth',1)
-semilogy(asin(ang1),'s-','linewidth',1)
-legend({'$|\lambda_j-\lambda_1^j|$','$\tau_{400}(\lambda_j)$ (error bound)','eigenspace error'},'interpreter','latex','fontsize',14,'location','southeast')
-ax=gca; ax.FontSize=14;
+semilogy(res1,'d-','linewidth',2)
+semilogy(real(ang1),'s-','linewidth',2)
+% semilogy([35,35],[10^(-14),1],'--k','linewidth',2)
+legend({'$|\lambda_j-\lambda_1^j|$','$\mathrm{res}(\lambda_j,g_j)$','eigenspace error'},'interpreter','latex','fontsize',22,'location','southeast')
+ax=gca; ax.FontSize=19;
 ylim([10^(-14),1])
 yticks(10.^(-14:2:0));
 xlim([0,100])

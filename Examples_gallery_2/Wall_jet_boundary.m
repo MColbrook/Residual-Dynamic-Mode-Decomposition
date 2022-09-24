@@ -26,10 +26,10 @@ load('EDMD_canopy_final.mat') % this is saved data from running the commented co
 %     PSI_y=transpose(DATA2(:,ind2+1))*V(:,1:N)*diag(1./diag(S(1:N,1:N)));
 %     clear S V
 % end
-%% Compute the ResDMD matrices
-G_matrix=(PSI_x(1:M2,1:N)'*PSI_x(1:M2,1:N))/M2;    
-A_matrix=(PSI_x(1:M2,1:N)'*PSI_y(1:M2,1:N))/M2;
-L_matrix=(PSI_y(1:M2,1:N)'*PSI_y(1:M2,1:N))/M2;
+% %% Compute the ResDMD matrices
+% G_matrix=(PSI_x(1:M2,1:N)'*PSI_x(1:M2,1:N))/M2;    
+% A_matrix=(PSI_x(1:M2,1:N)'*PSI_y(1:M2,1:N))/M2;
+% L_matrix=(PSI_y(1:M2,1:N)'*PSI_y(1:M2,1:N))/M2;
 
 %% (uncomment to) Compute pseudospectra
 % if comp_pseudospec==1
@@ -60,6 +60,19 @@ if comp_pseudospec==1
 	ax=gca; ax.FontSize=14; axis equal tight;   axis([x_pts(1),x_pts(end),y_pts(1),y_pts(end)])
 	plot(real(E),imag(E),'.r');
 end
+
+%% Eigenvalue scatter plot
+figure
+th=-pi:0.001:pi;
+c1=exp(1i*th-th.^2/18); c2=exp(1i*th-th.^2/30-0.005-abs(th)/20);    c3=exp(1i*th-abs(th)/11);
+plot(real(c3),imag(c3),'-k','linewidth',3)
+hold on
+scatter(real(E),imag(E),60,real(RES2),'.');
+caxis([0,1])
+colormap turbo; colorbar;
+ax=gca; ax.FontSize=14; axis equal tight;
+xlim([-1,1])
+ylim([-1,1])
 
 
 %%%%% UNCOMMENT THE FOLLOWING TO COMPUTE KOOPMAN MODES (REQUIRES RAW DATA) %%%%%
