@@ -10,7 +10,7 @@ Code for the papers:
 
 2. M.J. Colbrook, L. Ayton, M. Szőke, *"Residual Dynamic Mode Decomposition: Robust and verified Koopmanism"* in **"Examples_gallery_2"**. Paper can be found here: http://www.damtp.cam.ac.uk/user/mjc249/pdfs/ResDMD.pdf
 
-The code includes **"main_routines"** that are used across the papers. Each paper has a gallery of examples. 
+The code includes **"main_routines"** that are used across the papers (see that subfolder for the additional README file). Each paper has a gallery of examples. 
 
 **Datasets** (needed for some of the examples) can be found here: https://www.dropbox.com/sh/xj59e5in7dfsobi/AAAfkxqa1x9WFSTgrvqoqqRqa?dl=0
 
