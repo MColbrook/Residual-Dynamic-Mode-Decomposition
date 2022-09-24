@@ -8,4 +8,4 @@ Here is a high-level summary of each main routine and what they do. Full details
 
 **MomentMeas:** Given the autocorrelations (which could be computed by ErgodicMoments, for example), this function computes a smoothed approximation of the associated spectra measure in the form of a Fourier series (represented using chebfun). The user can also specify the choice of filter function used.
 
-**kernel_ResDMD:** This implements the choice of basis that uses kernel EDMD. The inputs are X and Y snapshots to form the dictionary (Xa and Ya) and X and Y snapshots to form the ResDMD matrices (Xb and Yb).
+**kernel_ResDMD:** This implements the choice of basis that uses kernel EDMD. The inputs are X and Y (Xa and Ya) snapshots to form the dictionary and X and Y snapshots (Xb and Yb) to form the ResDMD matrices.
