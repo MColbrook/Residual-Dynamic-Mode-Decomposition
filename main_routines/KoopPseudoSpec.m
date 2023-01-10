@@ -86,6 +86,7 @@ if ~isempty(p.Results.z_pts2)
             parfor_progress(pf);
         end
     end
+    V2=SQ*V2;
 end
 
 warning('on','all')
