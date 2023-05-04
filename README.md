@@ -8,7 +8,7 @@ Code for the papers:
 
 1. M.J. Colbrook, A. Townsend, *"Rigorous data-driven computation of spectral properties of Koopman operators for dynamical systems"* in **"Examples_gallery_1"**. Paper can be found here: http://www.damtp.cam.ac.uk/user/mjc249/pdfs/RigorousKoopman.pdf
 
-2. M.J. Colbrook, L. Ayton, M. Szőke, *"Residual Dynamic Mode Decomposition: Robust and verified Koopmanism"* in **"Examples_gallery_2"**. Paper can be found here: http://www.damtp.cam.ac.uk/user/mjc249/pdfs/ResDMD.pdf
+2. M.J. Colbrook, L. Ayton, M. Szőke, *"Residual Dynamic Mode Decomposition: Robust and verified Koopmanism"* in **"Examples_gallery_2"**. Paper can be found here: http://www.damtp.cam.ac.uk/user/mjc249/pdfs/residual-dynamic-mode-decomposition-robust-and-verified-koopmanism.pdf
 
 The code includes **"main_routines"** that are used across the papers (see that subfolder for the additional README file). Each paper has a gallery of examples. 
 
