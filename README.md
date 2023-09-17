@@ -14,7 +14,7 @@ Please cite using the following bibtex: @article{colbrook2021rigorous,
   year={2021}
 }
 
-2. M.J. Colbrook, L. Ayton, M. Szőke, *"Residual Dynamic Mode Decomposition: Robust and verified Koopmanism"* in **"Examples_gallery_2"**. Paper can be found here: [http://www.damtp.cam.ac.uk/user/mjc249/pdfs/residual-dynamic-mode-decomposition-robust-and-verified-koopmanism.pdf](https://www.cambridge.org/core/journals/journal-of-fluid-mechanics/article/residual-dynamic-mode-decomposition-robust-and-verified-koopmanism/67F1513D7E0E182E8094ABCD3E5E94ED)<br>
+2. M.J. Colbrook, L. Ayton, M. Szőke, *"Residual Dynamic Mode Decomposition: Robust and verified Koopmanism"* in **"Examples_gallery_2"**. Paper can be found here: https://www.cambridge.org/core/journals/journal-of-fluid-mechanics/article/residual-dynamic-mode-decomposition-robust-and-verified-koopmanism<br>
 Please cite using the following bibtex: @article{colbrook2023residual,
   title={Residual dynamic mode decomposition: robust and verified {K}oopmanism},
   author={Colbrook, Matthew J and Ayton, Lorna J and Sz{\H{o}}ke, M{\'a}t{\'e}},
