@@ -2,7 +2,7 @@
 
 Computation of spectral properties of Koopman operators associated with discrete-time autonomous dynamical systems. Highlights include: verified computation of spectra with error control (and avoidance of spurious modes) and computation of spectral measures with explicit high-order convergence.
 
-This repository will grow as further papers are written and if you are interested in collaborating, please get in touch at: m[dot]colbrook[at]damtp.cam.ac.uk
+This repository will grow as further papers are written and if you are interested in collaborating, please get in touch at: m.colbrook@damtp.cam.ac.uk
 
 Code for the papers:
 
