@@ -1,8 +1,7 @@
 clear
 close all
-addpath(genpath('./data_from_runs'))
 
-load('van_der_pol_data') % load the trajectory data
+load('van_der_pol_data') % load the trajectory data from here: https://www.dropbox.com/sh/xj59e5in7dfsobi/AAAfkxqa1x9WFSTgrvqoqqRqa?dl=0
 
 
 % %% Compute ResDMD matrices
