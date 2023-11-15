@@ -6,6 +6,8 @@ Here is a high-level summary of each main routine and what they do. Full details
 
 **KoopPseudoSpec:** Given the ResDMD matrices G, A, and L, and a grid of points z_pts, this function computes the minimal residuals for spectral parameters over the grid. This is used to compute pseudospectra and spectra of Koopman operators.
 
+**KoopPseudoSpecQR:** Mathematically equivalent to KoopPseudoSpec, but faster and more accurate. Watch out for the different input (raw data matrices).
+
 **MomentMeas:** Given the autocorrelations (which could be computed by ErgodicMoments, for example), this function computes a smoothed approximation of the associated spectra measure in the form of a Fourier series (represented using chebfun). The user can also specify the choice of filter function used.
 
 **kernel_ResDMD:** This implements the choice of basis that uses kernel EDMD. The inputs are X and Y (Xa and Ya) snapshots to form the dictionary and X and Y snapshots (Xb and Yb) to form the ResDMD matrices.
