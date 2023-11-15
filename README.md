@@ -4,6 +4,10 @@ Computation of spectral properties of Koopman operators associated with discrete
 
 This repository will grow as further papers are written and if you are interested in collaborating, please get in touch at: m.colbrook@damtp.cam.ac.uk
 
+The code includes **"main_routines"** that are used across the papers (see that subfolder for the additional README file). Each paper has a gallery of examples.
+
+To get started on a simple example, try the file Duffing_example.m
+
 Code for the papers:
 
 1. M.J. Colbrook, A. Townsend, *"Rigorous data-driven computation of spectral properties of Koopman operators for dynamical systems"* in **"Examples_gallery_1"**. Paper can be found here: http://www.damtp.cam.ac.uk/user/mjc249/pdfs/RigorousKoopman.pdf<br>
@@ -27,10 +31,6 @@ Please cite using the following bibtex: @article{colbrook2023residual,
 
 3. M.J. Colbrook, Q. Li, R.V. Raut, A. Townsend, *"Beyond expectations: Residual Dynamic Mode Decomposition and
 Variance for Stochastic Dynamical Systems"* in **"Examples_gallery_3"**.
-
-The code includes **"main_routines"** that are used across the papers (see that subfolder for the additional README file). Each paper has a gallery of examples.
-
-To get started on a simple example, try the file Duffing_example.m
 
 **Datasets** (needed for some of the examples) can be found here: https://www.dropbox.com/sh/xj59e5in7dfsobi/AAAfkxqa1x9WFSTgrvqoqqRqa?dl=0
 
