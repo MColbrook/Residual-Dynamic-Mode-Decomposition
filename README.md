@@ -6,7 +6,7 @@ This repository will grow as further papers are written and if you are intereste
 
 The code includes **"main_routines"** that are used across the papers (see that subfolder for the additional README file). Each paper has a gallery of examples.
 
-To get started on a simple example, try the file Duffing_example.m
+To get started on a simple example, try the file **"Duffing_example.m"**
 
 Code for the papers:
 
