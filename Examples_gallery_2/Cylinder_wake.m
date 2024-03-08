@@ -29,7 +29,7 @@ end
 % 
 % %% Apply ResDMD
 % if use_DMD~=1
-%     [PSI_x,PSI_y] = kernel_ResDMD(DATA(:,ind1),DATA(:,ind1+1),DATA(:,ind2),DATA(:,ind2+1),'N',N,'Parallel','on','cut_off',0);
+%     [~,~,~,~,~,PSI_x,PSI_y] = kernel_ResDMD(DATA(:,ind1),DATA(:,ind1+1),'Xb',DATA(:,ind2),'Yb',DATA(:,ind2+1),'N',N,'Parallel','on','type','Lorentzian');
 % else
 %     [~,S,V]=svd(transpose(DATA(:,ind1))/sqrt(M1),'econ');
 %     PSI_x=transpose(DATA(:,ind2))*V(:,1:N)*diag(1./(diag(S(1:N,1:N))));
