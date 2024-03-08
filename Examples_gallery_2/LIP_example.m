@@ -40,7 +40,7 @@ end
 
 %% Apply kernel ResDMD
 M1=size(X1,2);
-[PSI_x,PSI_y] = kernel_ResDMD(X1,Y1,X2,Y2,'N',N,'sketch','off','Parallel','on');
+[~,~,~,~,~,PSI_x,PSI_y] = kernel_ResDMD(X1,Y1,'Xb',X2,'Yb',Y2,'N',N,'Parallel','on','type','Lorentzian');
 [~,S2,V2]=svd(transpose(X1)/sqrt(M1));
 if delay>1
     PSI_x_DMD=transpose(X2)*V2*diag(1./diag(S2));
