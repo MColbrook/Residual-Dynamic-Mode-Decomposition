@@ -18,8 +18,7 @@ load('EDMD_canopy_final.mat') % this is saved data from running the commented co
 % %% Apply ResDMD
 % if use_DMD~=1
 %     tic
-%     [PSI_x,PSI_y] = kernel_ResDMD(DATA(:,ind1),DATA(:,ind1+1),DATA2(:,ind2),DATA2(:,ind2+1),'N',N,'sketch','off','Parallel','on','cut_off',10^(-12));
-%     toc
+%     [~,~,~,~,~,PSI_x,PSI_y] = kernel_ResDMD(DATA(:,ind1),DATA(:,ind1+1),'Xb',DATA2(:,ind2),'Yb',DATA2(:,ind2+1),'N',N,'Parallel','on','cut_off',10^(-12),'type','Lorentzian');
 % else
 %     [~,S,V]=svd(transpose(DATA(:,ind1))/sqrt(M1),'econ');
 %     PSI_x=transpose(DATA2(:,ind2))*V(:,1:N)*diag(1./diag(S(1:N,1:N)));
