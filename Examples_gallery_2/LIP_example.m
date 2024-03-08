@@ -40,7 +40,7 @@ end
 
 %% Apply kernel ResDMD
 M1=size(X1,2);
-[~,~,~,~,~,PSI_x,PSI_y] = kernel_ResDMD(X1,Y1,'Xb',X2,'Yb',Y2,'N',N);
+[~,~,~,~,~,PSI_x,PSI_y] = kernel_ResDMD(X1,Y1,'Xb',X2,'Yb',Y2,'N',N,'type','Laplacian');
 [~,S2,V2]=svd(transpose(X1)/sqrt(M1));
 if delay>1
     PSI_x_DMD=transpose(X2)*V2*diag(1./diag(S2));
@@ -92,7 +92,7 @@ plot(real(E),imag(E),'.r');
 RES2 = KoopPseudoSpec(G_matrix,A_matrix,L_matrix,E,'Parallel','on');
 
 % linear vs non-linear
-[~,~,~,~,~,PSI_x2,PSI_y2] = kernel_ResDMD(X1,Y1,'Xb',X3{1},'Yb',Y3{1},'N',N);
+[~,~,~,~,~,PSI_x2,PSI_y2] = kernel_ResDMD(X1,Y1,'Xb',X3{1},'Yb',Y3{1},'N',N,'type','Laplacian');
 
 if delay==1
     PSI_x2_DMD=transpose(X3{1});
