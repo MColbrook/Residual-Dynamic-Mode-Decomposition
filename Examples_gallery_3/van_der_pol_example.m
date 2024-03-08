@@ -5,7 +5,7 @@ load('van_der_pol_data') % load the trajectory data from here: https://www.dropb
 
 
 % %% Compute ResDMD matrices
-% [~,~,~,~,~,PX,PY1,PY2] = kernel_ResDMD(Xa,Ya,'Xb',Xb,'Yb',Yb,'Y2',Y2,'N',N);
+% [~,~,~,~,~,PX,PY1,PY2] = kernel_ResDMD(Xa,Ya,'Xb',Xb,'Yb',Yb,'Y2',Y2,'N',N,'type','Laplacian');
 % %%
 % G = (PX'*PX)/M;
 % A = PX'*(PY1+PY2)/(2*M);
