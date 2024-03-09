@@ -15,11 +15,15 @@ For measure-preserving EDMD, see the repository: https://github.com/MColbrook/Me
 Code for the papers:
 
 1. M.J. Colbrook, A. Townsend, *"Rigorous data-driven computation of spectral properties of Koopman operators for dynamical systems"* in **"Examples_gallery_1"**. Paper can be found here: http://www.damtp.cam.ac.uk/user/mjc249/pdfs/RigorousKoopman.pdf<br>
-Please cite using the following bibtex: @article{colbrook2021rigorous,
-  title={Rigorous data-driven computation of spectral properties of {K}oopman operators for dynamical systems},
-  author={Colbrook, Matthew J. and Townsend, Alex},
-  journal={arXiv preprint arXiv:2111.14889},
-  year={2021}
+Please cite using the following bibtex: @article{colbrook2024rigorous,
+  title={Rigorous data-driven computation of spectral properties of Koopman operators for dynamical systems},
+  author={Colbrook, Matthew J and Townsend, Alex},
+  journal={Communications on Pure and Applied Mathematics},
+  volume={77},
+  number={1},
+  pages={221--283},
+  year={2024},
+  publisher={Wiley Online Library}
 }
 
 2. M.J. Colbrook, L. Ayton, M. Szőke, *"Residual Dynamic Mode Decomposition: Robust and verified Koopmanism"* in **"Examples_gallery_2"**. Paper can be found here: https://www.cambridge.org/core/journals/journal-of-fluid-mechanics/article/residual-dynamic-mode-decomposition-robust-and-verified-koopmanism<br>
