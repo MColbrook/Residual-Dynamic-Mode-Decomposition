@@ -8,6 +8,10 @@ The code includes **"main_routines"** that are used across the papers (see that 
 
 To get started on a simple example, try the file **"Duffing_example.m"**
 
+For a pedagogical review of DMD methods, including code, see the repository: https://github.com/MColbrook/DMD-Multiverse
+
+For measure-preserving EDMD, see the repository: https://github.com/MColbrook/Measure-preserving-Extended-Dynamic-Mode-Decomposition
+
 Code for the papers:
 
 1. M.J. Colbrook, A. Townsend, *"Rigorous data-driven computation of spectral properties of Koopman operators for dynamical systems"* in **"Examples_gallery_1"**. Paper can be found here: http://www.damtp.cam.ac.uk/user/mjc249/pdfs/RigorousKoopman.pdf<br>
@@ -30,7 +34,19 @@ Please cite using the following bibtex: @article{colbrook2023residual,
 }
 
 3. M.J. Colbrook, Q. Li, R.V. Raut, A. Townsend, *"Beyond expectations: Residual Dynamic Mode Decomposition and
-Variance for Stochastic Dynamical Systems"* in **"Examples_gallery_3"**.
+Variance for Stochastic Dynamical Systems"* in **"Examples_gallery_3"**. Paper can be found here: [https://www.cambridge.org/core/journals/journal-of-fluid-mechanics/article/residual-dynamic-mode-decomposition-robust-and-verified-koopmanism](https://link.springer.com/article/10.1007/s11071-023-09135-w)<br>
+Please cite using the following bibtex: @article{colbrook2024beyond,
+  title={Beyond expectations: residual dynamic mode decomposition and variance for stochastic dynamical systems},
+  author={Colbrook, Matthew J and Li, Qin and Raut, Ryan V and Townsend, Alex},
+  journal={Nonlinear Dynamics},
+  volume={112},
+  number={3},
+  pages={2037--2061},
+  year={2024},
+  publisher={Springer}
+}
+
+4. M.J. Colbrook, *"Another look at Residual Dynamic Mode Decomposition with fewer Snapshots than Dictionary Size"* in **"Examples_gallery_4"**.
 
 **Datasets** (needed for some of the examples) can be found here: https://www.dropbox.com/sh/xj59e5in7dfsobi/AAAfkxqa1x9WFSTgrvqoqqRqa?dl=0
 
