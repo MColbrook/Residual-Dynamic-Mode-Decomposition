@@ -50,7 +50,7 @@ Please cite using the following bibtex: @article{colbrook2024beyond,
   publisher={Springer}
 }
 
-4. M.J. Colbrook, *"Another look at Residual Dynamic Mode Decomposition with fewer Snapshots than Dictionary Size"* in **"Examples_gallery_4"**.
+4. M.J. Colbrook, *"Another look at Residual Dynamic Mode Decomposition in the regime of fewer Snapshots than Dictionary Size"* in **"Examples_gallery_4"**.
 
 **Datasets** (needed for some of the examples) can be found here: https://www.dropbox.com/sh/xj59e5in7dfsobi/AAAfkxqa1x9WFSTgrvqoqqRqa?dl=0
 
