@@ -1,96 +1,96 @@
-function [G,K,L,PX,PY,PSI_x,PSI_y,PSI_y2] = kernel_ResDMD(Xa,Ya,varargin)
-% This code applies kernelized ResDMD.
+function [RES,RES2,V2] = KoopPseudoSpec(G,A,L,z_pts,varargin)
+% This code computes pseudospectrum of K (currently written for dense matrices).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % INPUTS
-% Xa and Ya: data matrices used in kernel_EDMD to form dictionary (columns
-% correspond to instances of the state variable)
+% G: Gram matrix
+% A: 1st Galerkin matrix  i.e. <K psi_j,psi_i>
+% L: 2nd Galerkin matrix  i.e. <K psi_j,K psi_i>
+% z_pts: vector of complex points where we want to compute pseudospectra
 
 % OPTIONAL LABELLED INPUTS
-% N: size of computed dictionary, default is number of data points for kernel EDMD
-% type: kernel used, default is normalised Gaussian, "Laplacian" is for
-% nomralised Laplacian, and numeric value (e.g., 20) is for polynomial
-% kernel
-% cut_off: stability parameter for SVD, default is 0
-% Xb, Yb: additional data matrices used in ResDMD for test data
-% Y2: additional data matrix for stochastic version
+% parallel: parfor (on) or normal for (off) loop, default is "off"
+% z_pts2: vector of complex points where we want to compute
+% pseudoeigenfunctions
+% reg_param: regularisation parameter for G
 
 % OUTPUTS
-% G K L matrices for kernelResDMD
-% PSI matrices for ResDMD
+% RES: residual for shifts z_pts.
+% RES2: residual for pseudoeigenfunctions corresponding to shifts z_pts2.
+% RES2: pseudoeigenfunctions corresponding to shifts z_pts2.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Collect the optional inputs
 p = inputParser;
+% addRequired(p,'G',@isnumeric);
+% addRequired(p,'A',@isnumeric);
+% addRequired(p,'L',@isnumeric);
+% addRequired(p,'z_pts',@isnumeric);
 
-addParameter(p,'N',size(Xa,2),@(x) x==floor(x))
-addParameter(p,'type',"Gaussian");
-addParameter(p,'cut_off',0,@(x) x>=0)
-addParameter(p,'Xb',[],@isnumeric)
-addParameter(p,'Yb',[],@isnumeric)
-addParameter(p,'Y2',[],@isnumeric)
+validPar = {'on','off'};
+checkPar = @(x) any(validatestring(x,validPar));
+
+addParameter(p,'Parallel','off',checkPar)
+addParameter(p,'z_pts2',[],@isnumeric)
+addParameter(p,'reg_param',10^(-14),@isnumeric)
 
 p.CaseSensitive = false;
 parse(p,varargin{:})
 
-% Apply kernel EDMD
-if isnumeric(p.Results.type)
-    d = mean(vecnorm(Xa));
-    kernel_f = @(x,y) (y'*x/d^2+1).^(p.Results.type);
-elseif p.Results.type=="Linear"
-    kernel_f = @(x,y) y'*x;
-elseif p.Results.type=="Laplacian"
-    d = mean(vecnorm(Xa-mean(Xa,2)));
-    if isa(Xa,'single') % safeguard against square root (but a little bit slower)
-        kernel_f = @(x,y) exp(-pdist2(y',x')/d);
+%% compute the pseudospectrum
+G=(G+G')/2; L=(L+L')/2; % safeguards
+[VG,DG]=eig(G+norm(G)*(p.Results.reg_param)*eye(size(G)));
+DG(abs(DG)>0)=sqrt(1./abs(DG(abs(DG)>0)));
+SQ=VG*DG*(VG'); % needed to compute pseudospectra according to Gram matrix G
+
+z_pts=z_pts(:);
+LL=length(z_pts);
+RES=zeros(LL,1);
+
+if LL>0
+    warning('off','all')
+    pf = parfor_progress(LL);
+    pfcleanup = onCleanup(@() delete(pf));
+    if p.Results.Parallel=="on"
+        parfor jj=1:LL
+            warning('off','all')
+            RES(jj)=sqrt(real(eigs( SQ*((L)-z_pts(jj)*A'-conj(z_pts(jj))*A+(abs(z_pts(jj))^2)*G)*SQ,1,'smallestabs')));
+            parfor_progress(pf);
+        end
     else
-        kernel_f = @(x,y) exp(-sqrt(-2*real(y'*x)+dot(x,x)+dot(y,y)')/d);
+        for jj=1:LL
+            RES(jj)=sqrt(real(eigs( SQ*((L)-z_pts(jj)*A'-conj(z_pts(jj))*A+(abs(z_pts(jj))^2)*G)*SQ,1,'smallestabs')));
+            parfor_progress(pf);
+        end
     end
-elseif p.Results.type=="Gaussian"
-    d = mean(vecnorm(Xa-mean(Xa,2)));
-    kernel_f = @(x,y) exp(-(-2*real(y'*x)+dot(x,x)+dot(y,y)')/d^2);
-elseif p.Results.type=="Lorentzian"
-    d = mean(vecnorm(Xa-mean(Xa,2)));
-    kernel_f = @(x,y) (1+(-2*real(y'*x)+dot(x,x)+dot(y,y)')/d^2).^(-1);
 end
 
-G1 = kernel_f(Xa,Xa); G1 = (G1+G1')/2;
-A1 = kernel_f(Ya,Xa)';
-L1 = kernel_f(Ya,Ya);  L1 = (L1+L1')/2;
+RES2=[];
+V2=[];
 
-% Post processing
-
-[U,D0] = eig(G1+norm(G1)*p.Results.cut_off*eye(size(G1)));
-[~,I] = sort(diag(D0),'descend');
-U = U(:,I); D0 = D0(I,I);
-N = min(p.Results.N,length(find(diag(D0)>0)));
-U = U(:,1:N); D0 = D0(1:N,1:N);
-UU = U*sqrt(diag(1./diag(D0)));
-
-% G = UU'*G1*UU;
-G = eye(N);
-K = UU'*A1*UU;
-L = UU'*L1*UU;
-
-PX = G1'*UU;
-PY = A1*UU;
-
-if ~isempty(p.Results.Xb) % test data case
-    PSI_x = kernel_f(p.Results.Xb,Xa)'*UU;
-else
-    PSI_x =[];
+if ~isempty(p.Results.z_pts2)
+    RES2=zeros(length(p.Results.z_pts2),1);
+    V2=zeros(size(G,1),length(p.Results.z_pts2));
+    pf = parfor_progress(length(p.Results.z_pts2));
+    pfcleanup = onCleanup(@() delete(pf));
+    if p.Results.Parallel=="on"
+        parfor jj=1:length(p.Results.z_pts2)
+            warning('off','all')
+            [V,D]=eigs( SQ*((L)-p.Results.z_pts2(jj)*A'-conj(p.Results.z_pts2(jj))*A+(abs(p.Results.z_pts2(jj))^2)*G)*SQ,1,'smallestabs');
+            V2(:,jj)=V; RES2(jj)=sqrt(real(D(1,1)));
+            parfor_progress(pf);
+        end
+    else
+        for jj=1:length(p.Results.z_pts2)
+            [V,D]=eigs( SQ*((L)-p.Results.z_pts2(jj)*A'-conj(p.Results.z_pts2(jj))*A+(abs(p.Results.z_pts2(jj))^2)*G)*SQ,1,'smallestabs');
+            V2(:,jj)=V; RES2(jj)=sqrt(real(D(1,1)));
+            parfor_progress(pf);
+        end
+    end
+    V2=SQ*V2;
 end
 
-if ~isempty(p.Results.Yb) % test data case
-    PSI_y = kernel_f(p.Results.Yb,Xa)'*UU;
-else
-    PSI_y =[];
-end
+warning('on','all')
 
-if ~isempty(p.Results.Y2) % stochastic case
-    PSI_y2 = kernel_f(p.Results.Y2,Xa)'*UU;
-else
-    PSI_y2 =[];
-end
 
 
 end
